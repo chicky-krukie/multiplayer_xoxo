@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:multiplayer_xoxo/components/game_board.dart';
+import 'package:multiplayer_xoxo/components/scoreboard.dart';
 import 'package:multiplayer_xoxo/provider/room_data_provider.dart';
+import 'package:multiplayer_xoxo/resources/socket_methods.dart';
+import 'package:multiplayer_xoxo/components/waiting_lobby.dart';
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatefulWidget {
@@ -12,15 +16,30 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  final SocketMethods _socketMethods = SocketMethods();
+
+  @override
+  void initState() {
+    super.initState();
+    _socketMethods.updateRoomListener(context);
+    _socketMethods.updatePlayersStateListener(context);
+    
+  }
+
   @override
   Widget build(BuildContext context) {
-    // ! For debug terminal testing
-    // print(Provider.of<RoomDataProvider>(context).player1.nickname);
-    // print(Provider.of<RoomDataProvider>(context).player2.nickname);
+    RoomDataProvider roomDataProvider = Provider.of<RoomDataProvider>(context);
+
     return Scaffold(
-      body: Center(
-        child: Text(
-          Provider.of<RoomDataProvider>(context).roomData.toString()
+      body: roomDataProvider.roomData['isJoin']
+        ? const WaitingLobby() 
+        : SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Scoreboard(),
+            const GameBoard(),
+          ],
         ),
       ),
     );
