@@ -70,6 +70,29 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on("tap", async ({ index, roomID }) => {
+        try {
+          let room = await Room.findById(roomID);
+            console.log(room);
+          let choice = room.turn.playerType; // x or o
+          if (room.turnIndex == 0) {
+            room.turn = room.players[1];
+            room.turnIndex = 1;
+          } else {
+            room.turn = room.players[0];
+            room.turnIndex = 0;
+          }
+          room = await room.save();
+          io.to(roomID).emit("tapped", {
+            index,
+            choice,
+            room,
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    
 });
 
 mongoose.set('strictQuery', true);

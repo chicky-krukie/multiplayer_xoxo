@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class SocketMethods {
   final _socketClient = SocketClient.instance.socket!;
-  
+
   // * Emitters
 
   void createRoom(String nickname) {
@@ -27,18 +27,29 @@ class SocketMethods {
     }
   }
 
+  void tapGrid(int index, String roomID, List<String> displayElements) {
+    if (displayElements[index] == '') {
+      _socketClient.emit('tap', {
+        'index': index,
+        'roomID': roomID,
+      });
+    }
+  }
+
   // * Listeners
 
   void createRoomSuccessListener(BuildContext context) {
     _socketClient.on('createRoomSuccess', (room) {
-      Provider.of<RoomDataProvider>(context, listen: false).updateRoomData(room);
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(room);
       Navigator.pushNamed(context, GameScreen.routeName);
     });
   }
 
   void joinRoomSuccessListener(BuildContext context) {
     _socketClient.on('joinRoomSuccess', (room) {
-      Provider.of<RoomDataProvider>(context, listen: false).updateRoomData(room);
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(room);
       Navigator.pushNamed(context, GameScreen.routeName);
     });
   }
@@ -51,14 +62,29 @@ class SocketMethods {
 
   void updatePlayersStateListener(BuildContext context) {
     _socketClient.on('updatePlayers', (playerData) {
-      Provider.of<RoomDataProvider>(context, listen: false).updatePlayer1(playerData[0]);
-      Provider.of<RoomDataProvider>(context, listen: false).updatePlayer2(playerData[1]);
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updatePlayer1(playerData[0]);
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updatePlayer2(playerData[1]);
     });
   }
 
   void updateRoomListener(BuildContext context) {
     _socketClient.on('updateRoom', (data) {
-      Provider.of<RoomDataProvider>(context, listen: false).updateRoomData(data);
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(data);
+    });
+  }
+
+  void tappedListener(BuildContext context) {
+    _socketClient.on('tapped', (data) {
+      RoomDataProvider roomDataProvider =
+          Provider.of<RoomDataProvider>(context, listen: false);
+      roomDataProvider.updateDisplayElements(
+        data['index'],
+        data['choice'],
+      );
+      roomDataProvider.updateRoomData(data['room']);
     });
   }
 }
