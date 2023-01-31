@@ -12,7 +12,6 @@ class GameScreen extends StatefulWidget {
 
   @override
   State<GameScreen> createState() => _GameScreenState();
-
 }
 
 class _GameScreenState extends State<GameScreen> {
@@ -23,7 +22,8 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     _socketMethods.updateRoomListener(context);
     _socketMethods.updatePlayersStateListener(context);
-    
+    _socketMethods.pointIncreaseListener(context);
+    _socketMethods.endGameListener(context);
   }
 
   @override
@@ -32,16 +32,18 @@ class _GameScreenState extends State<GameScreen> {
 
     return Scaffold(
       body: roomDataProvider.roomData['isJoin']
-        ? const WaitingLobby() 
-        : SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Scoreboard(),
-            const GameBoard(),
-          ],
-        ),
-      ),
+          ? const WaitingLobby()
+          : SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Scoreboard(),
+                  const GameBoard(),
+                  Text(
+                      '${roomDataProvider.roomData['turn']['nickname']}\'s turn'),
+                ],
+              ),
+            ),
     );
   }
 }

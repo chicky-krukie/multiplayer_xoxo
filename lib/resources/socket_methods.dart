@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:multiplayer_xoxo/provider/room_data_provider.dart';
+import 'package:multiplayer_xoxo/resources/game_methods.dart';
 import 'package:multiplayer_xoxo/resources/socket_client.dart';
 import 'package:multiplayer_xoxo/screens/game_screen.dart';
 import 'package:multiplayer_xoxo/utils/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class SocketMethods {
   final _socketClient = SocketClient.instance.socket!;
+
+  Socket get socketClient => _socketClient;
 
   // * Emitters
 
@@ -85,6 +89,27 @@ class SocketMethods {
         data['choice'],
       );
       roomDataProvider.updateRoomData(data['room']);
+      //check winner
+      GameMethods().checkWinner(context, _socketClient);
+    });
+  }
+
+  void pointIncreaseListener(BuildContext context) {
+    _socketClient.on('pointIncrease', (playerData) {
+      var roomDataProvider =
+          Provider.of<RoomDataProvider>(context, listen: false);
+      if (playerData['socketID'] == roomDataProvider.player1.socketID) {
+        roomDataProvider.updatePlayer1(playerData);
+      } else {
+        roomDataProvider.updatePlayer2(playerData);
+      }
+    });
+  }
+
+  void endGameListener(BuildContext context) {
+    _socketClient.on('endGame', (playerData) {
+      showGameDialog(context, '${playerData['nickname']} won the game!');
+      Navigator.popUntil(context, (route) => false);
     });
   }
 }
