@@ -17,12 +17,17 @@ class CustomTextField extends StatelessWidget {
             blurRadius: 5,
             spreadRadius: 2,
           )
-        ]
+        ],
+        borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       child: TextField(
         readOnly: isReadOnly,
         controller: controller,
         decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            
+          ),
           fillColor: bgColor,
           filled: true,
           hintText: hintText,

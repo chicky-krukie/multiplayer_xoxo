@@ -21,8 +21,9 @@ class CustomButton extends StatelessWidget {
             color: Colors.blue,
             blurRadius: 5,
             spreadRadius: 0,
-          )
+          ),
         ],
+        borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       child: ElevatedButton(
         onPressed: onTap,
@@ -31,6 +32,7 @@ class CustomButton extends StatelessWidget {
             width,
             50,
           ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
         child: Text(
           text, 
