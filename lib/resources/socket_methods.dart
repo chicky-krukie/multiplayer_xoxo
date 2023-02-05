@@ -106,12 +106,45 @@ class SocketMethods {
     });
   }
 
+  // void endGameListener(BuildContext context) {
+  //   _socketClient.on('endGame', (playerData) {
+  //     showGameDialog(context, '${playerData['nickname']} won the game!');
+  //     Navigator.popUntil(context, (route) => route.isFirst);
+  //     // Navigator.of(context).popUntil((route) => route.isFirst);
+
+  //   });
+  // }
+
   void endGameListener(BuildContext context) {
     _socketClient.on('endGame', (playerData) {
+      var roomDataProvider =
+          Provider.of<RoomDataProvider>(context, listen: false);
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('${playerData['nickname']} won the game!'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    GameMethods().clearBoard(context);
+                    roomDataProvider.reset();
+                    _socketClient.disconnect();
+                    Navigator.popUntil(context, (route) => false);
+                    // Navigator.popUntil(context, (route) => route.isFirst);
+                    
+                    // Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
+                  child: const Text('Play again'),
+                )
+              ],
+            );
+          });
+
       // showGameDialog(context, '${playerData['nickname']} won the game!');
       // Navigator.popUntil(context, (route) => false);
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      
+      // Navigator.of(context).popUntil((route) => route.isFirst);
     });
   }
 }

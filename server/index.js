@@ -14,8 +14,17 @@ app.use(express.json());
 
 const database = process.env.DB_URL;
 
+
 io.on('connection', (socket) => {
     console.log('Socket.io connection established');
+
+    socket.on('disconnect', () => {
+        console.log('a user disconnected');
+    });
+
+    socket.on('connect', () => {
+        console.log('user connected');
+    });
 
     socket.on('createRoom', async ({ nickname }) => {
         console.log(nickname);
@@ -61,7 +70,7 @@ io.on('connection', (socket) => {
                 room = await room.save();
                 io.to(roomID).emit('joinRoomSuccess', room);
                 io.to(roomID).emit('updatePlayers', room.players);
-                io.to(roomID).emit('updateRoom', room);
+                    io.to(roomID).emit('updateRoom', room);
             } else {
                 socket.emit('errorOccurred', 'Cannot join room. Game is already in progress.');
             }
@@ -111,6 +120,8 @@ io.on('connection', (socket) => {
             console.log(e);
         }
     });
+
+
 });
 
 mongoose.set('strictQuery', true);
