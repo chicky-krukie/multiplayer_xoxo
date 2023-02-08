@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multiplayer_xoxo/resources/socket_methods.dart';
 import 'package:multiplayer_xoxo/responsive/responsive.dart';
 import 'package:multiplayer_xoxo/widget/custom_button.dart';
+import 'package:multiplayer_xoxo/widget/custom_dropdown.dart';
 import 'package:multiplayer_xoxo/widget/custom_text.dart';
 import 'package:multiplayer_xoxo/widget/custom_text_field.dart';
 
@@ -32,35 +33,37 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
-      body: Responsive(
-        child: Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const CustomText(
-                shadows: [
-                  Shadow(
-                    blurRadius: 40,
-                    color: Colors.blue,
-                  )
-                ], 
-                text: 'Create Room', 
-                fontSize: 70,
-              ),
-              SizedBox(height: size.height * 0.08),
-              CustomTextField(controller: _nameController, hintText: 'Enter your nickname'),
-              SizedBox(height: size.height * 0.045),
-              CustomButton(onTap: () => _socketMethods.createRoom(_nameController.text), text: 'Create')
-            ]
-          ),
-        )
-      )
-    );
+        body: Responsive(
+            child: Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const CustomText(
+              shadows: [
+                Shadow(
+                  blurRadius: 40,
+                  color: Colors.blue,
+                )
+              ],
+              text: 'Create Room',
+              fontSize: 70,
+            ),
+            SizedBox(height: size.height * 0.08),
+            CustomTextField(
+                controller: _nameController, hintText: 'Enter your nickname'),
+            SizedBox(height: size.height * 0.04),
+            CustomDropdown(),
+            SizedBox(height: size.height * 0.045),
+            CustomButton(
+                onTap: () => _socketMethods.createRoom(_nameController.text),
+                text: 'Create')
+          ]),
+    )));
   }
 }

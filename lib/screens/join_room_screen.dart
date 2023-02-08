@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multiplayer_xoxo/resources/socket_methods.dart';
 import 'package:multiplayer_xoxo/responsive/responsive.dart';
 import 'package:multiplayer_xoxo/widget/custom_button.dart';
+import 'package:multiplayer_xoxo/widget/custom_dropdown.dart';
 import 'package:multiplayer_xoxo/widget/custom_text.dart';
 import 'package:multiplayer_xoxo/widget/custom_text_field.dart';
 
@@ -36,37 +37,41 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
-      body: Responsive(
-        child: Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const CustomText(
-                shadows: [
-                  Shadow(
-                    blurRadius: 40,
-                    color: Colors.blue,
-                  )
-                ], 
-                text: 'Join Room', 
-                fontSize: 70,
-              ),
-              SizedBox(height: size.height * 0.08),
-              CustomTextField(controller: _nameController, hintText: 'Enter your nickname'),
-              const SizedBox(height: 20),
-              CustomTextField(controller: _roomIDController, hintText: 'Enter Room ID'),
-              SizedBox(height: size.height * 0.045),
-              CustomButton(onTap: () => _socketMethods.joinRoom(_nameController.text, _roomIDController.text), text: 'Join')
-            ]
-          ),
-        )
-      )
-    );
+        body: Responsive(
+            child: Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const CustomText(
+              shadows: [
+                Shadow(
+                  blurRadius: 40,
+                  color: Colors.blue,
+                )
+              ],
+              text: 'Join Room',
+              fontSize: 70,
+            ),
+            SizedBox(height: size.height * 0.08),
+            CustomTextField(
+                controller: _nameController, hintText: 'Enter your nickname'),
+            const SizedBox(height: 20),
+            CustomTextField(
+                controller: _roomIDController, hintText: 'Enter Room ID'),
+            const SizedBox(height: 20),
+            const CustomDropdown(),
+            SizedBox(height: size.height * 0.045),
+            CustomButton(
+                onTap: () => _socketMethods.joinRoom(
+                    _nameController.text, _roomIDController.text),
+                text: 'Join')
+          ]),
+    )));
   }
 }
