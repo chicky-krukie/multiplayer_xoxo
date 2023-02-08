@@ -3,8 +3,14 @@ class Player {
   final String socketID;
   final double points;
   final String playerType;
+  final String playerOrg;
 
-  Player({required this.nickname, required this.socketID, required this.points, required this.playerType});
+  Player(
+      {required this.nickname,
+      required this.socketID,
+      required this.points,
+      required this.playerType,
+      required this.playerOrg});
 
   Map<String, dynamic> toMap() {
     return {
@@ -12,6 +18,7 @@ class Player {
       'socketID': socketID,
       'points': points,
       'playerType': playerType,
+      'playerOrg': playerOrg,
     };
   }
 
@@ -21,6 +28,7 @@ class Player {
       socketID: map['socketID'] ?? '',
       points: map['points']?.toDouble() ?? 0.0,
       playerType: map['playerType'] ?? '',
+      playerOrg: map['playerOrg'] ?? '',
     );
   }
 
@@ -29,12 +37,14 @@ class Player {
     String? socketID,
     double? points,
     String? playerType,
+    String? playerOrg,
   }) {
     return Player(
       nickname: nickname ?? this.nickname,
       socketID: socketID ?? this.socketID,
       points: points ?? this.points,
       playerType: playerType ?? this.playerType,
+      playerOrg: playerOrg ?? this.playerOrg,
     );
   }
 }

@@ -26,14 +26,16 @@ io.on('connection', (socket) => {
         console.log('user connected');
     });
 
-    socket.on('createRoom', async ({ nickname }) => {
-        console.log(nickname);
+    socket.on('createRoom', async ({ nickname, playerOrg }) => {
+        // console.log(nickname);
+        // console.log(playerOrg);
         try {
             let room = new Room();
             let player = {
                 socketID: socket.id,
                 nickname: nickname,
                 playerType: 'X',
+                playerOrg: playerOrg,
             };
             room.players.push(player);
             room.turn = player;
@@ -50,7 +52,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on("joinRoom", async ({ nickname, roomID }) => {
+    socket.on("joinRoom", async ({ nickname, roomID, playerOrg }) => {
         try {
             if (!roomID.match(/^[0-9a-fA-F]{24}$/)) {
                 socket.emit("errorOccurred", 'Please enter a valid room ID');
@@ -63,6 +65,7 @@ io.on('connection', (socket) => {
                     nickname: nickname,
                     socketID: socket.id,
                     playerType: "O",
+                    playerOrg: playerOrg,
                 };
                 socket.join(roomID);
                 room.players.push(player);

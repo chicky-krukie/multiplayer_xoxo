@@ -14,19 +14,21 @@ class SocketMethods {
 
   // * Emitters
 
-  void createRoom(String nickname) {
+  void createRoom(String nickname, String playerOrg) {
     if (nickname.isNotEmpty) {
       _socketClient.emit('createRoom', {
         'nickname': nickname,
+        'playerOrg': playerOrg,
       });
     }
   }
 
-  void joinRoom(String nickname, String roomID) {
+  void joinRoom(String nickname, String roomID, String playerOrg) {
     if (nickname.isNotEmpty && roomID.isNotEmpty) {
       _socketClient.emit('joinRoom', {
         'nickname': nickname,
         'roomID': roomID,
+        'playerOrg': playerOrg,
       });
     }
   }
@@ -129,11 +131,11 @@ class SocketMethods {
                 TextButton(
                   onPressed: () {
                     GameMethods().clearBoard(context);
-                    roomDataProvider.reset();
+                    // roomDataProvider.reset();
                     _socketClient.disconnect();
                     Navigator.popUntil(context, (route) => false);
                     // Navigator.popUntil(context, (route) => route.isFirst);
-                    
+
                     // Navigator.of(context).popUntil((route) => route.isFirst);
                   },
                   child: const Text('Play again'),

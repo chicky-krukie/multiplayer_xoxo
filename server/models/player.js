@@ -15,6 +15,10 @@ const playerSchema = new mongoose.Schema({
     playerType: {
         required: true,
         type: String,
+    },
+    playerOrg: {
+        required: true,
+        type: String,
     }
 });
 

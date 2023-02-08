@@ -3,13 +3,14 @@ import 'package:multiplayer_xoxo/models/player.dart';
 
 class RoomDataProvider extends ChangeNotifier {
   Map<String, dynamic> _roomData = {};
-  List<String> _displayElement = ['', '', '', '', '', '', '', '', ''];
+  List<String> _displayElement = ['', '', '', '', '', '', '', '', '', ''];
   int _filledBoxes = 0;
   Player _player1 = Player(
     nickname: '',
     socketID: '',
     points: 0,
     playerType: 'X',
+    playerOrg: '',
   );
 
   Player _player2 = Player(
@@ -17,6 +18,7 @@ class RoomDataProvider extends ChangeNotifier {
     socketID: '',
     points: 0,
     playerType: 'O',
+    playerOrg: '',
   );
 
   Map<String, dynamic> get roomData => _roomData;
