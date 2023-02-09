@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multiplayer_xoxo/provider/room_data_provider.dart';
+import 'package:multiplayer_xoxo/resources/db_methods.dart';
 import 'package:multiplayer_xoxo/screens/create_room_screen.dart';
 import 'package:multiplayer_xoxo/screens/join_room_screen.dart';
 import 'package:multiplayer_xoxo/screens/leaderboard_screen.dart';
@@ -8,7 +9,9 @@ import 'package:multiplayer_xoxo/screens/game_screen.dart';
 import 'package:multiplayer_xoxo/utils/colors.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  MongoDatabase.connect();
   runApp(const MyApp());
 }
 
