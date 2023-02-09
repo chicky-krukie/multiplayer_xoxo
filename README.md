@@ -14,3 +14,28 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Requirements
+- [Flutter](https://flutter.dev/)
+- [Node.js](https://nodejs.org/en/)
+- [pnpm](https://www.npmjs.com/package/pnpm)
+
+## Setting up
+
+Clone the repository, head to the project folder and get Flutter dependencies
+
+```bash
+flutter pub get
+```
+
+Get additional server dependencies
+
+```bash
+cd server && pnpm run dev
+```
+
+Set up .env file on server folder and run the app
+
+```bash
+flutter run
+```
