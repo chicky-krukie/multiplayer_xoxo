@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:multiplayer_xoxo/resources/socket_methods.dart';
 import 'package:multiplayer_xoxo/responsive/responsive.dart';
+import 'package:multiplayer_xoxo/screens/main_menu_screen.dart';
 import 'package:multiplayer_xoxo/widget/custom_button.dart';
 import 'package:multiplayer_xoxo/widget/custom_text.dart';
 import 'package:multiplayer_xoxo/widget/custom_text_field.dart';
-
-import '../utils/colors.dart';
 
 class JoinRoomScreen extends StatefulWidget {
   static String routeName = '/join-room';
@@ -29,6 +28,10 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
     'JPMAP',
   ];
   final SocketMethods _socketMethods = SocketMethods();
+
+  void mainMenu(BuildContext context) {
+    Navigator.pushNamed(context, MainMenuScreen.routeName);
+  }
 
   @override
   void initState() {
@@ -118,7 +121,9 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
                       orgValue,
                     ),
                 // onTap: () => print(orgValue),
-                text: 'Join')
+                text: 'Join'),
+            SizedBox(height: size.height * 0.023),
+            CustomButton(onTap: () => mainMenu(context), text: 'Go Back'),
           ]),
     )));
   }

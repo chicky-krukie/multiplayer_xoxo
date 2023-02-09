@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multiplayer_xoxo/resources/socket_methods.dart';
 import 'package:multiplayer_xoxo/responsive/responsive.dart';
+import 'package:multiplayer_xoxo/screens/main_menu_screen.dart';
 import 'package:multiplayer_xoxo/widget/custom_button.dart';
 import 'package:multiplayer_xoxo/widget/custom_text.dart';
 import 'package:multiplayer_xoxo/widget/custom_text_field.dart';
@@ -28,6 +29,10 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
     'JPMAP',
   ];
   final SocketMethods _socketMethods = SocketMethods();
+
+  void mainMenu(BuildContext context) {
+    Navigator.pushNamed(context, MainMenuScreen.routeName);
+  }
 
   @override
   void initState() {
@@ -111,7 +116,9 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                       orgValue,
                     ),
                 // onTap: () => print(orgValue),
-                text: 'Create')
+                text: 'Create'),
+            SizedBox(height: size.height * 0.023),
+            CustomButton(onTap: () => mainMenu(context), text: 'Go Back'),
           ]),
     )));
   }
