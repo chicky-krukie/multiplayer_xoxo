@@ -24,8 +24,11 @@ class _GameBoardState extends State<GameBoard> {
       index,
       roomDataProvider.roomData['_id'],
       roomDataProvider.displayElements,
+      roomDataProvider.player1,
+      roomDataProvider.player2,
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +50,17 @@ class _GameBoardState extends State<GameBoard> {
                 onTap: () => tapped(index, roomDataProvider),
                 child: Container(
                     decoration: BoxDecoration(
+                      // boxShadow: const [
+                      //   BoxShadow(
+                      //     color: Colors.amber,
+                      //     blurRadius: 10.0,
+                      //     spreadRadius: 25, 
+                      //   )
+                      // ],
                       border: Border.all(
                         color: Colors.white24,
                       ),
+                      
                     ),
                     child: Center(
                         child: AnimatedSize(
@@ -63,9 +74,21 @@ class _GameBoardState extends State<GameBoard> {
                           shadows: [
                             Shadow(
                               blurRadius: 40,
-                              color: roomDataProvider.displayElements[index] == 'O'
+                              color: roomDataProvider.displayElements[index] == 'O' && roomDataProvider.player2.playerOrg == 'EXPLICIT' || roomDataProvider.displayElements[index] == 'X' && roomDataProvider.player1.playerOrg == 'EXPLICIT'
+                                  ? Colors.blue.shade900
+                                  : roomDataProvider.displayElements[index] == 'X' && roomDataProvider.player1.playerOrg == 'JEMMA' || roomDataProvider.displayElements[index] == 'O' && roomDataProvider.player2.playerOrg == 'JEMMA'
+                                  ? Colors.purple
+                                  : roomDataProvider.displayElements[index] == 'X' && roomDataProvider.player1.playerOrg == 'GEMS' || roomDataProvider.displayElements[index] == 'O' && roomDataProvider.player2.playerOrg == 'GEMS'
+                                  ? Colors.lightBlue
+                                  : roomDataProvider.displayElements[index] == 'X' && roomDataProvider.player1.playerOrg == 'JPIA' || roomDataProvider.displayElements[index] == 'O' && roomDataProvider.player2.playerOrg == 'JPIA'
+                                  ? Colors.yellow
+                                  : roomDataProvider.displayElements[index] == 'X' && roomDataProvider.player1.playerOrg == 'YES' || roomDataProvider.displayElements[index] == 'O' && roomDataProvider.player2.playerOrg == 'YES'
+                                  ? Colors.green
+                                  : roomDataProvider.displayElements[index] == 'X' && roomDataProvider.player1.playerOrg == 'SME' || roomDataProvider.displayElements[index] == 'O' && roomDataProvider.player2.playerOrg == 'SME'
                                   ? Colors.red
-                                  : Colors.blue,
+                                  : roomDataProvider.displayElements[index] == 'X' && roomDataProvider.player1.playerOrg == 'JPMAP' || roomDataProvider.displayElements[index] == 'O' && roomDataProvider.player2.playerOrg == 'JPMAP'
+                                  ? Colors.pink
+                                  : Colors.orange,
                             )
                           ],
                                               ),

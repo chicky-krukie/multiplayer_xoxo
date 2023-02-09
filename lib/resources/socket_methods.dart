@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multiplayer_xoxo/models/player.dart';
 import 'package:multiplayer_xoxo/provider/room_data_provider.dart';
 import 'package:multiplayer_xoxo/resources/game_methods.dart';
 import 'package:multiplayer_xoxo/resources/socket_client.dart';
@@ -33,7 +34,7 @@ class SocketMethods {
     }
   }
 
-  void tapGrid(int index, String roomID, List<String> displayElements) {
+  void tapGrid(int index, String roomID, List<String> displayElements, Player player1, Player player2) {
     if (displayElements[index] == '') {
       _socketClient.emit('tap', {
         'index': index,
