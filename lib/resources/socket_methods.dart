@@ -4,6 +4,7 @@ import 'package:multiplayer_xoxo/provider/room_data_provider.dart';
 import 'package:multiplayer_xoxo/resources/game_methods.dart';
 import 'package:multiplayer_xoxo/resources/socket_client.dart';
 import 'package:multiplayer_xoxo/screens/game_screen.dart';
+import 'package:multiplayer_xoxo/screens/play_again_screen.dart';
 import 'package:multiplayer_xoxo/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -132,12 +133,10 @@ class SocketMethods {
                 TextButton(
                   onPressed: () {
                     GameMethods().clearBoard(context);
-                    // roomDataProvider.reset();
-                    _socketClient.disconnect();
-                    Navigator.popUntil(context, (route) => false);
-                    // Navigator.popUntil(context, (route) => route.isFirst);
-
-                    // Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const PlayAgainScreen()),
+                    );
                   },
                   child: const Text('Play again'),
                 )
