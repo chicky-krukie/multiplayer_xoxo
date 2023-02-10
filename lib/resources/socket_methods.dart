@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:multiplayer_xoxo/models/player.dart';
 import 'package:multiplayer_xoxo/provider/room_data_provider.dart';
 import 'package:multiplayer_xoxo/resources/game_methods.dart';
 import 'package:multiplayer_xoxo/resources/socket_client.dart';
 import 'package:multiplayer_xoxo/screens/game_screen.dart';
-import 'package:multiplayer_xoxo/screens/play_again_screen.dart';
 import 'package:multiplayer_xoxo/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -35,7 +37,8 @@ class SocketMethods {
     }
   }
 
-  void tapGrid(int index, String roomID, List<String> displayElements, Player player1, Player player2) {
+  void tapGrid(int index, String roomID, List<String> displayElements,
+      Player player1, Player player2) {
     if (displayElements[index] == '') {
       _socketClient.emit('tap', {
         'index': index,
@@ -132,13 +135,15 @@ class SocketMethods {
               actions: [
                 TextButton(
                   onPressed: () {
-                    GameMethods().clearBoard(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const PlayAgainScreen()),
-                    );
+                    // GameMethods().clearBoard(context);
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const PlayAgainScreen()),
+                    // );
+                    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                    exit(0);
                   },
-                  child: const Text('Play again'),
+                  child: const Text('Exit'),
                 )
               ],
             );
