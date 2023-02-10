@@ -50,13 +50,6 @@ class _GameBoardState extends State<GameBoard> {
                 onTap: () => tapped(index, roomDataProvider),
                 child: Container(
                     decoration: BoxDecoration(
-                      // boxShadow: const [
-                      //   BoxShadow(
-                      //     color: Colors.amber,
-                      //     blurRadius: 10.0,
-                      //     spreadRadius: 25, 
-                      //   )
-                      // ],
                       border: Border.all(
                         color: Colors.white24,
                       ),
