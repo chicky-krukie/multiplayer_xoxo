@@ -10,6 +10,7 @@ class GameMethods {
         Provider.of<RoomDataProvider>(context, listen: false);
 
     String winner = ''; //'X' or 'O'
+    bool flag = false;
 
     //checking rows
     if (roomDataProvider.displayElements[0] ==
@@ -17,7 +18,8 @@ class GameMethods {
         roomDataProvider.displayElements[0] ==
             roomDataProvider.displayElements[2] &&
         roomDataProvider.displayElements[0] != '') {
-      winner = roomDataProvider.displayElements[0]; //X or O
+      winner = roomDataProvider.displayElements[0];
+      flag = true; //X or O
     }
 
     if (roomDataProvider.displayElements[3] ==
@@ -26,6 +28,7 @@ class GameMethods {
             roomDataProvider.displayElements[5] &&
         roomDataProvider.displayElements[3] != '') {
       winner = roomDataProvider.displayElements[3];
+      flag = true;
     }
 
     if (roomDataProvider.displayElements[6] ==
@@ -34,6 +37,7 @@ class GameMethods {
             roomDataProvider.displayElements[8] &&
         roomDataProvider.displayElements[6] != '') {
       winner = roomDataProvider.displayElements[6];
+      flag = true;
     }
 
     //checking columns
@@ -43,6 +47,7 @@ class GameMethods {
             roomDataProvider.displayElements[6] &&
         roomDataProvider.displayElements[0] != '') {
       winner = roomDataProvider.displayElements[0];
+      flag = true;
     }
 
     if (roomDataProvider.displayElements[1] ==
@@ -51,6 +56,7 @@ class GameMethods {
             roomDataProvider.displayElements[7] &&
         roomDataProvider.displayElements[1] != '') {
       winner = roomDataProvider.displayElements[1];
+      flag = true;
     }
 
     if (roomDataProvider.displayElements[2] ==
@@ -59,6 +65,7 @@ class GameMethods {
             roomDataProvider.displayElements[8] &&
         roomDataProvider.displayElements[2] != '') {
       winner = roomDataProvider.displayElements[2];
+      flag = true;
     }
 
     //checking diagonal
@@ -68,6 +75,7 @@ class GameMethods {
             roomDataProvider.displayElements[8] &&
         roomDataProvider.displayElements[0] != '') {
       winner = roomDataProvider.displayElements[0];
+      flag = true;
     }
 
     if (roomDataProvider.displayElements[2] ==
@@ -76,49 +84,12 @@ class GameMethods {
             roomDataProvider.displayElements[6] &&
         roomDataProvider.displayElements[2] != '') {
       winner = roomDataProvider.displayElements[2];
-    } else if (roomDataProvider.filledBoxes == 9 && roomDataProvider.displayElements[0] !=
-            roomDataProvider.displayElements[1] &&
-        roomDataProvider.displayElements[0] !=
-            roomDataProvider.displayElements[2] &&
-        roomDataProvider.displayElements[0] == '' 
-        || roomDataProvider.filledBoxes == 9 && roomDataProvider.displayElements[3] !=
-            roomDataProvider.displayElements[4] &&
-        roomDataProvider.displayElements[3] !=
-            roomDataProvider.displayElements[5] &&
-        roomDataProvider.displayElements[3] == ''
-        || roomDataProvider.filledBoxes == 9 && roomDataProvider.displayElements[6] !=
-            roomDataProvider.displayElements[7] &&
-        roomDataProvider.displayElements[6] !=
-            roomDataProvider.displayElements[8] &&
-        roomDataProvider.displayElements[6] == ''
-        || roomDataProvider.filledBoxes == 9 && roomDataProvider.displayElements[0] !=
-            roomDataProvider.displayElements[3] &&
-        roomDataProvider.displayElements[0] !=
-            roomDataProvider.displayElements[6] &&
-        roomDataProvider.displayElements[0] == ''
-        || roomDataProvider.filledBoxes == 9 && roomDataProvider.displayElements[1] !=
-            roomDataProvider.displayElements[4] &&
-        roomDataProvider.displayElements[1] !=
-            roomDataProvider.displayElements[7] &&
-        roomDataProvider.displayElements[1] == '' 
-        || roomDataProvider.filledBoxes == 9 && roomDataProvider.displayElements[2] !=
-            roomDataProvider.displayElements[5] &&
-        roomDataProvider.displayElements[2] !=
-            roomDataProvider.displayElements[8] &&
-        roomDataProvider.displayElements[2] == ''
-        || roomDataProvider.filledBoxes == 9 && roomDataProvider.displayElements[0] !=
-            roomDataProvider.displayElements[4] &&
-        roomDataProvider.displayElements[0] !=
-            roomDataProvider.displayElements[8] &&
-        roomDataProvider.displayElements[0] == ''
-        || roomDataProvider.filledBoxes == 9 && roomDataProvider.displayElements[2] !=
-            roomDataProvider.displayElements[4] &&
-        roomDataProvider.displayElements[2] !=
-            roomDataProvider.displayElements[6] &&
-        roomDataProvider.displayElements[2] == ''
-        ) {
-      winner = '';
+      flag = true;
+    }
+
+    if (roomDataProvider.filledBoxes == 9 && flag != true) {
       showGameDialog(context, 'Draw');
+      flag = false;
     }
 
     if (winner != '') {
