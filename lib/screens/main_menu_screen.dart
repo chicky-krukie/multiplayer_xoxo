@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multiplayer_xoxo/screens/create_room_screen.dart';
 import 'package:multiplayer_xoxo/screens/join_room_screen.dart';
-import 'package:multiplayer_xoxo/screens/leaderboard_screen.dart';
 import 'package:multiplayer_xoxo/widget/custom_button.dart';
 import 'package:multiplayer_xoxo/responsive/responsive.dart';
 import 'package:multiplayer_xoxo/widget/custom_text.dart';
@@ -16,10 +15,6 @@ class MainMenuScreen extends StatelessWidget {
 
   void joinRoom(BuildContext context) {
     Navigator.pushNamed(context, JoinRoomScreen.routeName);
-  }
-
-  void leaderboard(BuildContext context) {
-    Navigator.pushNamed(context, LeaderboardScreen.routeName);
   }
 
   @override
@@ -51,8 +46,6 @@ class MainMenuScreen extends StatelessWidget {
           CustomButton(onTap: () => createRoom(context), text: 'Create Room'),
           const SizedBox(height: 20),
           CustomButton(onTap: () => joinRoom(context), text: 'Join Room'),
-          const SizedBox(height: 20),
-          CustomButton(onTap: () => leaderboard(context), text: 'Leaderboards'),
         ],
       ),
     )));
